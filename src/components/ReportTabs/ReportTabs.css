@@ -1,0 +1,7 @@
+.Tab{
+    width: 50%;
+    /* height: 6.85vh; */
+    display: flex;
+    align-Items: center;
+    justify-Content: center;
+}

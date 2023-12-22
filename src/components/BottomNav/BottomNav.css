@@ -1,0 +1,19 @@
+.stickToBottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display:none !important;
+
+  }
+
+.Mui-selected {
+    color: #0abab5 !important;
+}
+
+@media (max-width: 600px) {
+
+    .stickToBottom{
+        display:block !important;
+    }
+    
+}

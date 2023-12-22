@@ -1,0 +1,17 @@
+.sub-header {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.paragraph {
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.warning-text {
+  color: #ED6C02
+}

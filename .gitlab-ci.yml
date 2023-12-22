@@ -1,0 +1,58 @@
+image: docker:19.03.12
+
+services:
+  - docker:19.03.12-dind
+
+stages:
+  - build
+
+variables:
+  DOCKER_TLS_CERTDIR: ''
+  TEST_IMAGE: ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA}
+  RELEASE_IMAGE: ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_NAME}:latest
+  GCP_PROJECT: jubo-dtc
+  PRODUCT_NAME: dtc
+
+before_script:
+  - cat $KEY | docker login -u _json_key --password-stdin https://gcr.io
+  - echo "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.smart-aging.tech" > ./.git-credentials
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: always
+
+.build:
+  stage: build
+  script:
+    - BRANCH_NAME=$CI_COMMIT_BRANCH
+    - if [[ -z $BRANCH_NAME ]]; then BRANCH_NAME=$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME; fi
+    - TAG=gcr.io/$GCP_PROJECT/$PRODUCT_NAME/$IMAGE_NAME:$BRANCH_NAME-$CI_COMMIT_SHORT_SHA
+    - docker build -t $TAG .
+    - docker push $TAG
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
+
+# test:
+#   stage: test
+#   image: node:16.18.0-alpine3.15
+#   before_script:
+#     - echo "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.smart-aging.tech" > ~/.git-credentials
+#   script:
+#     - apk update && apk add --no-cache make git
+#     - git config --global credential.helper store
+#     - make install && make test
+
+build-dev:push:gcr:
+  variables:
+    IMAGE_NAME: dtc-jubo-health-webview-frontend
+  extends: .build
+
+build-release:push:gcr:
+  variables:
+    IMAGE_NAME: dtc-jubo-health-webview-frontend
+  extends: .build
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
+      when: manual

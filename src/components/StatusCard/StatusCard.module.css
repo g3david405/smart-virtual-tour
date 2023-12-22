@@ -1,0 +1,13 @@
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.status-text b {
+  font-weight: 700;
+}
+
+.status-text b span {
+  color: #ED6C02
+}

@@ -1,0 +1,22 @@
+.header{
+    display: flex;
+    height: 7vh;
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+#settings{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#productName{
+    padding-left: 15px;
+    font-size: large;
+    font-style: bold;
+}

@@ -1,0 +1,31 @@
+.date-stepper {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin: 16px 0;
+}
+
+.date-stepper span{
+  display: inline-block;
+  flex: 1;
+  text-align: center;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.date-stepper button {
+  all: initial;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.date-stepper button:first-child {
+  justify-content: start;
+}
+
+.date-stepper button:last-child {
+  justify-content: end;
+}
